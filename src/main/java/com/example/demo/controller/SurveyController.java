@@ -3,12 +3,12 @@ package com.example.demo.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +24,9 @@ import com.example.demo.serviceImplimentation.SurveyImpli;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/survey")
 public class SurveyController {
@@ -34,29 +37,20 @@ public class SurveyController {
 	@Autowired
 	private ModelMapper mm;
 	
+	
+	
 	@PostMapping("/save")
-	public ResponseEntity<Survey> createSurvey(@RequestBody SurveyRequest surveyRequest) throws JsonProcessingException{
-		Survey survey=new Survey();
-		survey.setStatus("Draft");
-		survey.setVersion(1);
-		survey.setCreatedAt(LocalDateTime.now());
-		Random random=new Random();
-		survey.setSurveyId(random.nextInt(1111)+1);
-		survey.setTitle(surveyRequest.getTitle());
-		survey.setCreatedBy(surveyRequest.getCreatedBy());
-		
-		
-		ObjectMapper map=new ObjectMapper();
-		String question= map.writeValueAsString(surveyRequest.getQuestion());
-		
-		survey.setQuestion(question);
-		
-		Survey survey1=simpli.createSrvey(survey);
-		
-		
-		
-		return ResponseEntity.ok(survey1);
+	public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) throws JsonProcessingException {
+	   // log.info("Survey Request: {}", survey);
+
+	
+
+
+	    Survey savedSurvey = simpli.createSrvey(survey);
+	    return ResponseEntity.ok(savedSurvey);
 	}
+
+	
 	
 	@GetMapping("/getAllSurvey")
 	public ResponseEntity<List<Survey>> getAllSurvey(){

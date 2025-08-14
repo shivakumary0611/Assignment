@@ -1,5 +1,6 @@
 package com.example.demo.serviceImplimentation;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.Survey;
 import com.example.demo.repository.SurveyRepository;
 import com.example.demo.service.SurveyService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class SurveyImpli implements SurveyService{
@@ -18,8 +21,15 @@ public class SurveyImpli implements SurveyService{
 
 	
 	@Override
-	public Survey createSrvey(Survey survey) {
+	public Survey createSrvey(Survey survey) throws JsonProcessingException {
 		
+		 	survey.setStatus("Draft");
+		    survey.setVersion(1);
+		    survey.setCreatedAt(LocalDateTime.now());
+		    survey.setVersion(1);
+		    System.out.println(survey.getQuestion());
+		    survey.setQuestion(covert(survey.getQuestion()));
+
 		return srepo.save(survey);
 	}
 
@@ -55,6 +65,12 @@ public class SurveyImpli implements SurveyService{
 	public Survey updateSurvey(Survey survey) {
 		
 		return srepo.save(survey);
+	}
+
+	@Override
+	public String covert(Object json) throws JsonProcessingException {
+		ObjectMapper mapper=new ObjectMapper();
+		return mapper.writeValueAsString(json);
 	}
 
 }

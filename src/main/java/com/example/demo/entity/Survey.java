@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +24,9 @@ public class Survey{
 	private LocalDateTime createdAt;
 	private LocalDateTime modifiedAt;
 	
+	@Column(columnDefinition = "TEXT")
+	private Object question;
 	
-	private String question;
 	private int version;
 	private String status;
 	
