@@ -14,7 +14,7 @@ public interface SurveyService {
 	List<Survey> getSurveyByTitle(String title);
 	void deleteSurveyById(int id);
 	Survey updateSurvey(Survey survey);
-	String covert(Object json)throws JsonProcessingException;
+	String convert(Object json)throws JsonProcessingException;
 	
 	
 	

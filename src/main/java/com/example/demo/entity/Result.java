@@ -18,7 +18,7 @@ public class Result {
 	private int surveyId;
 	private int version;
 	@Lob
-	@Column(columnDefinition = "Json")
-	private String response;
+	@Column(columnDefinition = "TEXT")
+	private Object response;
 	
 }

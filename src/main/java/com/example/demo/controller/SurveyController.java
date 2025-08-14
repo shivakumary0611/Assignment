@@ -42,10 +42,7 @@ public class SurveyController {
 	@PostMapping("/save")
 	public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) throws JsonProcessingException {
 	   // log.info("Survey Request: {}", survey);
-
-	
-
-
+		
 	    Survey savedSurvey = simpli.createSrvey(survey);
 	    return ResponseEntity.ok(savedSurvey);
 	}
@@ -59,7 +56,7 @@ public class SurveyController {
 	}
 	
 	@GetMapping("/getSurveyById/{id}")
-	public ResponseEntity<?> findById(@PathVariable int id){
+	public ResponseEntity<?> findById(@PathVariable int id) throws Exception{
 		Survey survey=simpli.getSurveyById(id);
 		if (survey == null) {
 	        return ResponseEntity
@@ -97,12 +94,12 @@ public class SurveyController {
 		
 		Survey newSurvey=new Survey();
 		
-	    mm.map(surveyRequest,newSurvey);	
+	    mm.map(surveyRequest,newSurvey);
+	    newSurvey.setId(null);
 		newSurvey.setStatus("Final");
 		newSurvey.setModifiedAt(LocalDateTime.now());
-		
-		
 		newSurvey.setVersion(existsurvey.getVersion()+1);
+		System.out.println(newSurvey.getId());
 		
 		Survey updatedSurvey=simpli.updateSurvey(newSurvey);
 		

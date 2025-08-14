@@ -3,6 +3,7 @@ package com.example.demo.serviceImplimentation;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,10 @@ public class SurveyImpli implements SurveyService{
 		    survey.setVersion(1);
 		    survey.setCreatedAt(LocalDateTime.now());
 		    survey.setVersion(1);
-		    System.out.println(survey.getQuestion());
-		    survey.setQuestion(covert(survey.getQuestion()));
+		    Random random=new Random();
+		    survey.setSurveyId(random.nextInt(1234)+1);
+		   
+		    survey.setQuestion(convert(survey.getQuestion()));
 
 		return srepo.save(survey);
 	}
@@ -40,7 +43,7 @@ public class SurveyImpli implements SurveyService{
 	}
 
 	@Override
-	public Survey getSurveyById(int id) {
+	public Survey getSurveyById(int id){
 		
 		Optional<Survey>  sur=srepo.findById(id);
 		
@@ -68,7 +71,7 @@ public class SurveyImpli implements SurveyService{
 	}
 
 	@Override
-	public String covert(Object json) throws JsonProcessingException {
+	public String convert(Object json) throws JsonProcessingException {
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(json);
 	}
