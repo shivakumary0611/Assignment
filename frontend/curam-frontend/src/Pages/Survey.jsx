@@ -12,7 +12,7 @@ export default function Survey() {
     axios
       .get("http://localhost:8080/survey/getAllSurvey")
       .then((res) => {
-        const finalSurveys = res.data.filter((s) => s.status === "Final");
+        const finalSurveys = res.data.filter((s) => s.status === "Final" || s.status === "Draft"  );
         setSurveys(finalSurveys);
       })
       .catch((err) => console.error(err));
