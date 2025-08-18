@@ -47,6 +47,12 @@ public class ResultImplimentation implements ResultService{
 		ObjectMapper mapper=new ObjectMapper();
 		return mapper.writeValueAsString(json);
 	}
+
+	@Override
+	public List<Result> getByKeyword(String keyword) {
+		
+		return rrepo.findByTitle(keyword);
+	}
 	
 	
 	

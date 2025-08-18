@@ -12,4 +12,5 @@ public interface ResultService {
 	Result  getResultById(int id);
 	void deleteResult(int id);
 	String convert(Object json)throws JsonProcessingException;
+	List<Result> getByKeyword(String keyword);
 }

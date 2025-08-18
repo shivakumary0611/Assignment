@@ -39,11 +39,11 @@ public class SurveyController {
 	public ResponseEntity<?> createSurvey(@RequestBody Survey survey) throws JsonProcessingException {
 	   
 		try {
-	    Survey savedSurvey = simpli.createSrvey(survey);
+	    Survey savedSurvey = simpli.createSrvey(survey); 
 	    return ResponseEntity.ok(savedSurvey);
 	}catch (Exception e) {
 		return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(Map.of("error", "A survey with this title already exists"));
+                .body(Map.of("error", "A survey with this title already exists")); 
 		// TODO: handle exception
 	}
 		
@@ -71,10 +71,7 @@ public class SurveyController {
 	@GetMapping("/getBykeyword")
 	public ResponseEntity<?>getByTitle(@RequestParam String keyword){
 		List<Survey> survey=simpli.getSurveyByKeyword("%" + keyword + "%");;
-		System.out.println(keyword);
-		for(Survey sur:survey) {
-			System.out.println(sur);
-		}
+		
 		
 		return ResponseEntity.ok(survey);
 	}
@@ -110,7 +107,7 @@ public class SurveyController {
 	}
 	
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/deleteById/{id}")
 	public ResponseEntity<?> deleteSurvey(@PathVariable int id) {
 	    Survey existingSurvey = simpli.getSurveyById(id);
 	    if (existingSurvey == null) {

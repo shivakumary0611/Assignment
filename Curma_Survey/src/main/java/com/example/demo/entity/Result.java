@@ -17,6 +17,7 @@ public class Result {
 	private int id;
 	private int surveyId;
 	private int version;
+	private String title;
 	@Lob
 	@Column(columnDefinition = "TEXT")
 	private Object response;

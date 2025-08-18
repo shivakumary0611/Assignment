@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Result;
+import com.example.demo.entity.Survey;
 import com.example.demo.serviceImplimentation.ResultImplimentation;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -26,6 +28,7 @@ public class ResultController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<Result> saveResult(@RequestBody Result result) throws JsonProcessingException{
+		System.out.println(result);
 		Result resultref=rimp.saveResult(result);
 		
 		return ResponseEntity.ok(resultref);
@@ -50,6 +53,13 @@ public class ResultController {
 		return ResponseEntity.ok(ref);
 		}
 	
+	@GetMapping("/getByKeyword")
+	public ResponseEntity<?> getByKeyword(@RequestParam String keyword){
+
+		List<Result> result=rimp.getByKeyword(keyword);
+
+		return ResponseEntity.ok(result);
+	}
 	
 	@DeleteMapping("/deleteById/{id}")
 	public ResponseEntity<?> deleteResultById(@PathVariable int id){

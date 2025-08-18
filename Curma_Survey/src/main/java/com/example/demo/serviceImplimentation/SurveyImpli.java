@@ -24,12 +24,11 @@ public class SurveyImpli implements SurveyService{
 	@Override
 	public Survey createSrvey(Survey survey) throws Exception {
 		
-		Survey sur=findByTitle(survey.getTitle());
+		Survey sur=findByTitle(survey.getTitle().trim());
 		if(sur==null) {
 			survey.setStatus("Draft");
 		    survey.setVersion(1);
 		    survey.setCreatedAt(LocalDateTime.now());
-		    survey.setVersion(1);
 		    Random random=new Random();
 		    survey.setSurveyId(random.nextInt(1234)+1);
 		   
