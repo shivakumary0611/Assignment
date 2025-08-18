@@ -95,7 +95,6 @@ public class SurveyController {
 		
 	    mm.map(surveyRequest,newSurvey);
 	    newSurvey.setId(null);
-		newSurvey.setStatus("Final");
 		newSurvey.setModifiedAt(LocalDateTime.now());
 		newSurvey.setVersion(existsurvey.getVersion()+1);
 		newSurvey.setSurveyId(existsurvey.getSurveyId());
