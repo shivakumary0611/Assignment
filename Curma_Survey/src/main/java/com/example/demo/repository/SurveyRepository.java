@@ -17,6 +17,6 @@ public interface SurveyRepository  extends JpaRepository<Survey, Integer>{
 	@Query(value = "SELECT * FROM SURVEY WHERE STATUS LIKE :keyword OR TITLE LIKE :keyword", nativeQuery = true)
 	List<Survey> findByKeyword(@Param("keyword") String keyword);
 
-
+   Survey  findByTitle(String title);
 	
 }

@@ -1,0 +1,64 @@
+/* Question block styling */
+.question-block {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+/* Option row styling */
+.option-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.option-row input[type="text"] {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+/* Button styling */
+.remove-option-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-option-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.remove-question-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.add-question-btn {
+  background: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 20px 0;
+}

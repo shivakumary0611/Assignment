@@ -2,8 +2,7 @@ package com.example.demo.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +36,17 @@ public class SurveyController {
 	
 	
 	@PostMapping("/save")
-	public ResponseEntity<Survey> createSurvey(@RequestBody Survey survey) throws JsonProcessingException {
-	   // log.info("Survey Request: {}", survey);
-		
+	public ResponseEntity<?> createSurvey(@RequestBody Survey survey) throws JsonProcessingException {
+	   
+		try {
 	    Survey savedSurvey = simpli.createSrvey(survey);
 	    return ResponseEntity.ok(savedSurvey);
+	}catch (Exception e) {
+		return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of("error", "A survey with this title already exists"));
+		// TODO: handle exception
+	}
+		
 	}
 
 	
@@ -63,7 +68,7 @@ public class SurveyController {
 		return ResponseEntity.ok(survey);
 	}
 	
-	@GetMapping("/getBykeyword	")
+	@GetMapping("/getBykeyword")
 	public ResponseEntity<?>getByTitle(@RequestParam String keyword){
 		List<Survey> survey=simpli.getSurveyByKeyword("%" + keyword + "%");;
 		System.out.println(keyword);
@@ -96,6 +101,7 @@ public class SurveyController {
 		newSurvey.setStatus("Final");
 		newSurvey.setModifiedAt(LocalDateTime.now());
 		newSurvey.setVersion(existsurvey.getVersion()+1);
+		newSurvey.setSurveyId(existsurvey.getSurveyId());
 		System.out.println(newSurvey.getId());
 		
 		Survey updatedSurvey=simpli.updateSurvey(newSurvey);

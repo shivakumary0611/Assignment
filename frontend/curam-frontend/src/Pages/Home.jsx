@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import './Home.css';
 
 export default function Home() {
-
   const [surveys, setSurveys] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [error, setError] = useState(""); // store error message
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchSurveys("");
@@ -18,19 +19,25 @@ export default function Home() {
 
     fetch(url)
       .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
         return res.json();
       })
       .then(data => {
         setSurveys(data);
-        setError(""); // clear error on success
+        setError("");
       })
       .catch(err => {
         console.error(err);
-        setError("Failed to fetch surveys: " + err.message); // store error
+        setError("Failed to fetch surveys: " + err.message);
       });
+  };
+
+  const handleSurveyClick = (survey) => {
+    if (survey.status === 'Draft') {
+      navigate(`/createSurvey/${survey.id}`);
+    } else {
+      alert('Only draft surveys can be edited');
+    }
   };
 
   const handleInputChange = (e) => {
@@ -56,10 +63,10 @@ export default function Home() {
         onClick={handleSearchClick}
       />
 
-      {/* Display error if any */}
+
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <table className="table-fixed" border={1}>
+       <table className="table-fixed" border={1}>
         <thead>
           <tr>
             <th>ID</th>
@@ -67,6 +74,7 @@ export default function Home() {
             <th>Created By</th>
             <th>Created At</th>
             <th>Title</th>
+            <th>Question</th>
             <th>Modified At</th>
             <th>Version</th>
             <th>Status</th>
@@ -74,12 +82,18 @@ export default function Home() {
         </thead>
         <tbody>
           {surveys.map((s) => (
-            <tr key={s.id}>
+            <tr 
+              key={s.id}
+              onClick={() => handleSurveyClick(s)}
+              className={s.status === 'Draft' ? 'draft-row' : ''}
+              style={{ cursor: s.status === 'Draft' ? 'pointer' : 'default' }}
+            >
               <td>{s.id}</td>
               <td>{s.surveyId}</td>
               <td>{s.createdBy}</td>
               <td>{s.createdAt}</td>
               <td>{s.title}</td>
+              <td>{s.question}</td>
               <td>{s.modifiedAt}</td>
               <td>{s.version}</td>
               <td>{s.status}</td>

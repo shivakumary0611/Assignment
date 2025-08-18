@@ -22,9 +22,11 @@ public class SurveyImpli implements SurveyService{
 
 	
 	@Override
-	public Survey createSrvey(Survey survey) throws JsonProcessingException {
+	public Survey createSrvey(Survey survey) throws Exception {
 		
-		 	survey.setStatus("Draft");
+		Survey sur=findByTitle(survey.getTitle());
+		if(sur==null) {
+			survey.setStatus("Draft");
 		    survey.setVersion(1);
 		    survey.setCreatedAt(LocalDateTime.now());
 		    survey.setVersion(1);
@@ -34,6 +36,10 @@ public class SurveyImpli implements SurveyService{
 		    survey.setQuestion(convert(survey.getQuestion()));
 
 		return srepo.save(survey);
+			
+		}
+		throw new Exception("Same title Survey already exist");
+		 	
 	}
 
 	@Override
@@ -74,6 +80,12 @@ public class SurveyImpli implements SurveyService{
 	public List<Survey> getSurveyByKeyword(String keyword) {
 		
 		return srepo.findByKeyword(keyword);
+	}
+
+	@Override
+	public Survey findByTitle(String title) {
+		
+		return srepo.findByTitle(title);
 	}
 
 	

@@ -14,6 +14,7 @@ function RouterApp() {
         <Route path="/" element={<Home />} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/createSurvey" element={<CreateSurvey />} />
+        <Route path="/createSurvey/:id" element={<CreateSurvey />} />
         <Route path="/response" element={<Response />} />
       </Routes>
     
