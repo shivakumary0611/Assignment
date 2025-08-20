@@ -98,7 +98,7 @@ public class SurveyController {
 		newSurvey.setModifiedAt(LocalDateTime.now());
 		newSurvey.setVersion(existsurvey.getVersion()+1);
 		newSurvey.setSurveyId(existsurvey.getSurveyId());
-		System.out.println(newSurvey.getId());
+		
 		
 		Survey updatedSurvey=simpli.updateSurvey(newSurvey);
 		

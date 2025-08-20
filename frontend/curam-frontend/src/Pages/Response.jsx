@@ -60,7 +60,7 @@ export default function Response() {
     }
   };
 
-  // Function to render parsed response nicely
+
   const renderResponse = (response) => {
     let parsed = null;
     try {
@@ -157,7 +157,6 @@ export default function Response() {
         </tbody>
       </table>
 
-      {/* Popup for response */}
       {selectedResponse && (
         <div
           style={{

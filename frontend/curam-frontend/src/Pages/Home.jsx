@@ -131,7 +131,7 @@ export default function Home() {
         </tbody>
       </table>
 
-      {/* Popup for survey questions */}
+      
       {selectedSurvey && (
         <div
           style={{
